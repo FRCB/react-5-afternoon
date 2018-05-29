@@ -1,20 +1,23 @@
-import React,  { Component } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { updateHistory } from '../../ducks/reducer';
 
 class WizardNine extends Component {
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="parent-div">
-                <div className="vert-align">                    
-                    
+                <div className="vert-align">
+
                     <p>What is your address?</p> <br />
 
-                    <input type="text" placeholder="Line One" onChange={this.props.updateAddLineOne}/>
-                    <input type="text" placeholder="Line Two" onChange={this.props.updateAddLineTwo}/>
-                    <input type="text" placeholder="Line Three" onChange={this.props.updateAddLineThree}/>
-                
-                    
+                    <input type="text" placeholder="Line One" onChange={(e) => this.props.updateHistory(e.target.value)} />
+                    <input type="text" placeholder="Line Two" onChange={(e) => this.props.updateHistory(e.target.value)} />
+                    <input type="text" placeholder="Line Three" onChange={(e) => this.props.updateHistory(e.target.value)} />
+
+
                     <Link to="/wTen"><button className="margin-btn"> Next </button></Link>
                 </div>
             </div>
@@ -22,4 +25,10 @@ class WizardNine extends Component {
     }
 }
 
-export default WizardNine;
+function mapStateToProps(state) {
+    return {
+        history: state.history
+    }
+}
+
+export default connect(mapStateToProps, { updateHistory })(WizardNine);
